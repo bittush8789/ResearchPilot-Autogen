@@ -1,0 +1,38 @@
+# ==============================================================================
+# ResearchPilot — Streamlit Frontend Container
+# ==============================================================================
+FROM python:3.11-slim AS frontend
+
+# Set environment flags
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    BACKEND_URL=http://backend:8000
+
+# Install essential system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install Python requirements
+COPY requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+# Copy frontend source and configuration modules
+COPY frontend/ ./frontend/
+COPY backend/ ./backend/
+
+# Create required persistent data directories
+RUN mkdir -p /app/data/sessions /app/data/pdfs
+
+EXPOSE 8501
+
+# Streamlit Healthcheck
+HEALTHCHECK --interval=20s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8501/_stcore/health || exit 1
+
+# Launch Streamlit app
+CMD ["streamlit", "run", "frontend/app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]

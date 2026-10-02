@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Testing & Cache
+.pytest_cache/
+.benchmarks/
+*.log
+
+# Environment & Sensitive
+.env
+.env.local
+
+# Data and Storage
+data/pdfs/*
+!data/pdfs/.gitkeep
+data/sessions/*
+!data/sessions/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp

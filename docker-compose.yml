@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # FastAPI Backend Service (Agent Orchestration & External Ingestion)
+  # ----------------------------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: researchpilot-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - researchpilot-net
+
+  # ----------------------------------------------------------------------------
+  # Streamlit Frontend Service (Reactive User Interface)
+  # ----------------------------------------------------------------------------
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    container_name: researchpilot-frontend
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - researchpilot-net
+
+# ------------------------------------------------------------------------------
+# Isolated Bridge Network
+# ------------------------------------------------------------------------------
+networks:
+  researchpilot-net:
+    driver: bridge

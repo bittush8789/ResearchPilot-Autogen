@@ -1,0 +1,249 @@
+/* ResearchPilot — Minimalist Research Intelligence Product Styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg-app: #0b0f17;
+  --bg-surface: #111827;
+  --bg-surface-hover: #1e293b;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(99, 102, 241, 0.5);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --accent: #6366f1;
+  --accent-light: #a5b4fc;
+  --accent-emerald: #10b981;
+  --accent-cyan: #38bdf8;
+}
+
+html, body, [class*="css"] {
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-app);
+}
+
+code, pre, .mono {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Minimal Hero & Header */
+.app-header {
+  text-align: center;
+  padding: 24px 0 16px 0;
+  margin-bottom: 24px;
+}
+
+.app-brand {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-tagline {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  font-weight: 400;
+  margin-top: 6px;
+  letter-spacing: -0.01em;
+}
+
+/* Prompt Card & Question */
+.search-container {
+  max-width: 820px;
+  margin: 0 auto 28px auto;
+}
+
+.search-label {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Suggestion Pills */
+.suggestion-pill {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.suggestion-pill:hover {
+  background: rgba(99, 102, 241, 0.12);
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #ffffff;
+}
+
+/* Minimal State Box (Researching sources... -> Analyzing papers... -> Research Report) */
+.state-box {
+  background: rgba(17, 24, 39, 0.65);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+
+.state-phase {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+}
+
+.state-phase.active {
+  background: rgba(99, 102, 241, 0.08);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.state-phase.done {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-blue {
+  background: rgba(56, 189, 248, 0.12);
+  color: #7dd3fc;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.badge-emerald {
+  background: rgba(16, 185, 129, 0.12);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.badge-purple {
+  background: rgba(168, 85, 247, 0.12);
+  color: #d8b4fe;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+/* Paper Item */
+.paper-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  transition: border-color 0.2s;
+}
+
+.paper-item:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.paper-item-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.paper-item-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.paper-item-desc {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+}
+
+/* Web Resource Item */
+.web-item {
+  background: rgba(17, 24, 39, 0.75);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+}
+
+.web-item:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+/* Report Content Typography */
+.report-paper {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 32px;
+  line-height: 1.7;
+}
+
+.report-paper h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-top: 32px;
+  color: #ffffff;
+}
+
+.report-paper h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-top: 24px;
+}
+
+.report-paper p {
+  color: #e2e8f0;
+  font-size: 0.98rem;
+}
+
+/* Clean Streamlit Tab Styling */
+.stTabs [data-baseweb="tab-list"] {
+  gap: 6px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 4px;
+}
+
+.stTabs [data-baseweb="tab"] {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+}
+
+.stTabs [aria-selected="true"] {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  font-weight: 600;
+}

@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Testing & Linting
+.pytest_cache/
+.benchmarks/
+.coverage
+htmlcov/
+tests/
+
+# Logs & Temporary Files
+*.log
+scratch/
+
+# IDE Configuration
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker / Documentation
+Dockerfile*
+docker-compose*.yml
+*.md

@@ -1,0 +1,42 @@
+# ==============================================================================
+# ResearchPilot — FastAPI Backend Container
+# ==============================================================================
+FROM python:3.11-slim AS backend
+
+# Set environment flags
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    HOST=0.0.0.0 \
+    PORT=8000
+
+# Install essential system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    gcc \
+    libxml2-dev \
+    libxslt-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install Python requirements
+COPY requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+# Copy application backend codebase
+COPY backend/ ./backend/
+COPY pytest.ini .
+
+# Create required persistent data directories
+RUN mkdir -p /app/data/sessions /app/data/pdfs
+
+EXPOSE 8000
+
+# Health check to ensure FastAPI is responding
+HEALTHCHECK --interval=20s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Launch ASGI server
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
